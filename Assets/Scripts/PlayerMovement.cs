@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
+
+    [Header("Animation")]
+    public Animator playerAnim;
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -49,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         //ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
         MyInput();
         SpeedControl();
 
@@ -58,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
     }
 
     private void MyInput()
@@ -65,15 +70,35 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
+        //animation run   !!!!!!TEST
+        if (horizontalInput != 0)
+        playerAnim.SetTrigger("run");
+        else   
+        playerAnim.ResetTrigger("idle");
+
+        if (verticalInput != 0)
+            playerAnim.SetTrigger("run");
+        else
+            playerAnim.ResetTrigger("idle");
+
+
+        //test
+        //if (jumpKey !=0)
+        //playerAnim.SetTrigger("idle");
+
+
+
+
+
         //when to jump
-        if(Input.GetKey(jumpKey) && readyToJump && grounded) 
+        if (Input.GetKey(jumpKey) && readyToJump && grounded) 
         {
             readyToJump = false;
 
             Jump();
 
             Invoke(nameof(ResetJump), jumpCooldown);
-            Debug.Log("saute");
+            
         }
     }
     
@@ -89,7 +114,9 @@ public class PlayerMovement : MonoBehaviour
         //in air
         else if (!grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+
     }
+
 
     private void SpeedControl()
     {
