@@ -1,16 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed;
+    public float moveSpeedMultiplier;
 
     public float groundDrag;
 
     public float jumpForce;
+    public float fallForce;
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
@@ -37,7 +37,10 @@ public class PlayerMovement : MonoBehaviour
 
     // Start is called before the first frame update
     private void Start()
-    {
+    {   
+        //exemple utilisation namespace
+        //PlayerMovementTest.PlayerMovement.flag
+
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -53,9 +56,11 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         //ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        //grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        grounded = Physics.CheckSphere(new Vector3(transform.position.x, transform.position.y, transform.position.z),0.2f, whatIsGround);
         MyInput();
         SpeedControl();
+        Animation();
 
         //handle drag
         if (grounded)
@@ -64,44 +69,49 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = 0;
 
     }
+    /*private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y, transform.position.z), 0.2f);
+    }*/
 
     private void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        //animation run   !!!!!!TEST
-        if (horizontalInput != 0)
-        playerAnim.SetTrigger("run");
-        else   
-        playerAnim.ResetTrigger("idle");
-
-        if (verticalInput != 0)
-            playerAnim.SetTrigger("run");
-        else
-            playerAnim.ResetTrigger("idle");
-
-
-        //test
-        //if (jumpKey !=0)
-        //playerAnim.SetTrigger("idle");
-
-
-
-
-
         //when to jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded) 
+        if (Input.GetKey(jumpKey) && grounded) 
         {
-            readyToJump = false;
-
+            Debug.Log("saut");
             Jump();
 
-            Invoke(nameof(ResetJump), jumpCooldown);
+            Invoke(nameof(Fall), jumpCooldown);
             
         }
+
+        if (Input.GetKey(KeyCode.LeftShift) && grounded)
+        {
+            moveSpeedMultiplier = 3f;
+        }
+        else moveSpeedMultiplier = 1f;
+
     }
-    
+
+    private void Animation ()
+    {
+        //animation
+        if (horizontalInput != 0 || verticalInput != 0)
+            playerAnim.SetBool("Run", true);
+        else
+            playerAnim.SetBool("Run", false);
+
+        playerAnim.SetBool("Jump", !grounded);
+        playerAnim.SetFloat("CurrentSpeedMultiplier", moveSpeedMultiplier);
+
+        //if (Input.GetKey(jumpKey) && grounded)
+         //   playerAnim.SetBool("Jump", true);
+    }
+
     private void MovePlayer()
     {
         //calculate movement direction
@@ -109,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
 
         //on ground
         if (grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * moveSpeed * moveSpeedMultiplier * 10f, ForceMode.Force);
 
         //in air
         else if (!grounded)
@@ -130,15 +140,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Jump()
+    public void Jump()
     {
         //reset y velocity
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+       // rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
-    private void ResetJump()
+    private void Fall ()
     {
-        readyToJump = true;
+        rb.AddForce(-transform.up * fallForce , ForceMode.Impulse);
     }
 }
+
+
