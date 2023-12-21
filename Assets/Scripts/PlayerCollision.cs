@@ -1,6 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.Properties;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +13,7 @@ public class PlayerCollision : MonoBehaviour
     bool isInvincible = false;
     public AudioClip hitSound;
     public AudioClip coinSound;
+    public AudioClip alarmClock;
     AudioSource audioSource;
     public SkinnedMeshRenderer rend;
 
@@ -61,6 +61,11 @@ public class PlayerCollision : MonoBehaviour
         {
             GameManager._instance.SetFinalTime();
             SceneManager.LoadScene("End");
+        }
+        //AlarmClock
+        if (other.gameObject.tag == "Clock")
+        {
+            audioSource.PlayOneShot(alarmClock);
         }
     }
 

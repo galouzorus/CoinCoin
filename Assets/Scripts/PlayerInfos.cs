@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -35,15 +34,7 @@ public class PlayerInfos : MonoBehaviour
         GameManager._instance.nbCoin += value;
         coinsTxt.text = GameManager._instance.nbCoin.ToString();
     }
-    //MONSTER SCORE
-    /*public void KillMonster(int nb)
-    {
-        GameManager._instance.nbMonster += nb;
-        coinsTxt.text = GameManager._instance.nbMonster.ToString();
-    }*/
-
-
-
+    
     public void SetHealthBar()
     {   //lifebar decrease
         foreach (Image img in hearts) 

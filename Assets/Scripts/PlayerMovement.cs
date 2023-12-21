@@ -47,11 +47,6 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
     }
 
-    private void FixedUpdate()
-    {
-        MovePlayer();
-    }
-
     // Update is called once per frame
     private void Update()
     {
@@ -61,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
         MyInput();
         SpeedControl();
         Animation();
+        MovePlayer();
 
         //handle drag
         if (grounded)
@@ -82,7 +78,6 @@ public class PlayerMovement : MonoBehaviour
         //when to jump
         if (Input.GetKey(jumpKey) && grounded) 
         {
-            Debug.Log("saut");
             Jump();
 
             Invoke(nameof(Fall), jumpCooldown);
@@ -115,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
         //calculate movement direction
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput ;
 
         //on ground
         if (grounded)

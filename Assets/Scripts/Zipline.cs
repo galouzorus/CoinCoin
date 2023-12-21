@@ -48,10 +48,7 @@ public class Zipline : MonoBehaviour
         player.GetComponent<Rigidbody>().useGravity = false;
         player.GetComponent<Rigidbody>().isKinematic = true;
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        //trouver la correspondance pour desactiver input et controller         import invector controller namespace ?
-        //player.GetComponent<vThirdPersonInput>().enable = false;
         player.GetComponent<PlayerMovement>().enabled = false;
-        //player.GetComponent<vThirdPersonController>().enable = false;
         player.transform.parent = localZip.transform;
         zipping = true;
     }
@@ -63,9 +60,7 @@ public class Zipline : MonoBehaviour
         player.GetComponent<Rigidbody>().useGravity = true;
         player.GetComponent<Rigidbody>().isKinematic = false;
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        //trouver la correspondance pour desactiver input et controller
         player.GetComponent<PlayerMovement>().enabled = true;
-        //player.GetComponent<vThirdPersonController>().enable = true;
         player.transform.parent = null;
         Destroy(localZip);
         localZip = null;

@@ -10,6 +10,7 @@ TagManager:
   - Zipline
   - Death
   - Portal
+  - Clock
   layers:
   - Default
   - TransparentFX
