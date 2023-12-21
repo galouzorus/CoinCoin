@@ -17,7 +17,7 @@ public class BlinkingLight : MonoBehaviour
         if ( _light.enabled)
             _light.enabled = false;
         else _light.enabled = true;
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.25f);
 
         StartCoroutine(Blink());
     }

@@ -791,6 +791,7 @@ GameObject:
   - component: {fileID: 738165889}
   - component: {fileID: 738165891}
   - component: {fileID: 738165890}
+  - component: {fileID: 738165892}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -814,7 +815,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -124, y: 104}
+  m_AnchoredPosition: {x: -1.4, y: 89}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &738165890
@@ -865,14 +866,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45
+  m_fontSize: 44.05
   m_fontSizeBase: 45
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 33
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -901,7 +902,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -172.22717, w: 0}
+  m_margin: {x: -62.65658, y: 0, z: -62.16768, w: 7.1264935}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -915,6 +916,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 738165888}
   m_CullTransparentMesh: 1
+--- !u!95 &738165892
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738165888}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3c7caf6aca08ec84290a8f4faee131b1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1032157067
 GameObject:
   m_ObjectHideFlags: 0
@@ -2034,9 +2056,9 @@ MonoBehaviour:
   m_text: "Bienvenue dans le monde de L\xE9o, votre objectif est le suivant :  vous
     devrez r\xE9colter un maximum de billes en un minimum de temps et affronter des
     monstres qui vous barrent la route.\n\nAfin de deplacer votre joueur vous devrez
-    utiliser :\n\n- les touches ZQSD pour vous deplacer\n- la touche espace pour
-    sauter\n- la souris pour deplacer l'angle de la cam\xE9ra\n- la touche E pour
-    activer la tyrolienne\n\nBonne Chance !"
+    utiliser :\n\n- les touches ZQSD pour vous deplacer\n- la touche shift pour courrir
+    \n- la touche espace pour sauter\n- la souris pour deplacer l'angle de la cam\xE9ra\n-
+    la touche E pour activer la tyrolienne\n\nBonne Chance !"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8d5df8ee81143384c86a948a7a53624c, type: 2}
   m_sharedMaterial: {fileID: 3161599265289977165, guid: 8d5df8ee81143384c86a948a7a53624c,

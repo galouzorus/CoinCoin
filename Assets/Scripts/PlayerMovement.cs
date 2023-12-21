@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
+    public AudioClip jumpSound;
+    AudioSource audioSource;
 
     [Header("Animation")]
     public Animator playerAnim;
@@ -37,10 +39,10 @@ public class PlayerMovement : MonoBehaviour
 
     // Start is called before the first frame update
     private void Start()
-    {   
+    {
         //exemple utilisation namespace
         //PlayerMovementTest.PlayerMovement.flag
-
+        audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -79,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(jumpKey) && grounded) 
         {
             Jump();
+            audioSource.PlayOneShot(jumpSound, 0.2f);
 
             Invoke(nameof(Fall), jumpCooldown);
             

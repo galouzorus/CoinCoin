@@ -14,6 +14,7 @@ public class PlayerCollision : MonoBehaviour
     public AudioClip hitSound;
     public AudioClip coinSound;
     public AudioClip alarmClock;
+    public AudioClip hurtSound;
     AudioSource audioSource;
     public SkinnedMeshRenderer rend;
 
@@ -26,7 +27,7 @@ public class PlayerCollision : MonoBehaviour
     {
         if(other.gameObject.tag =="Coins")
         {
-            audioSource.PlayOneShot(coinSound);
+            audioSource.PlayOneShot(coinSound, 0.5f);
             GameObject go = Instantiate(pickupEffect,other.transform.position,Quaternion.identity);
             Destroy(go, 0.5f);
             Coins coins = other.gameObject.GetComponent<Coins>();
@@ -65,7 +66,7 @@ public class PlayerCollision : MonoBehaviour
         //AlarmClock
         if (other.gameObject.tag == "Clock")
         {
-            audioSource.PlayOneShot(alarmClock);
+            audioSource.PlayOneShot(alarmClock, 0.3f);
         }
     }
 
@@ -73,6 +74,7 @@ public class PlayerCollision : MonoBehaviour
     {   //Monster Damage
         if (collision.gameObject.tag == "Hurt" && !isInvincible)
         {
+            audioSource.PlayOneShot(hurtSound);
             print ("ca fait mal");
             isInvincible = true;
             PlayerInfos.pi.SetHealth(-1);
